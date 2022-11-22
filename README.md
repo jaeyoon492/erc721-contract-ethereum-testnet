@@ -41,3 +41,31 @@ If you update contract then following tasks:
 npx hardhat compile
 npx hardhat deploy
 ```
+
+## Usage ipfs-car for upload to ipfs
+
+1. Make directory images, metadata
+2. Put the image you want in the images directory
+3. Enter the command below to create the images.car file
+4. Access the https://nft.storage/files/ and upload the images.car file
+5. Copy the CID to the uploaded car file
+
+```shell
+# make directory
+mkdir images
+mkdir metadata
+
+# create the images.car file
+npx ipfs-car --pack images --output images.car
+
+# create the metadata.car file
+npx ipfs-car --pack metadata --output metadata.car
+```
+
+## Usage Generate Metadata
+
+Check metadata directory on root.
+
+```shell
+npx hardhat generate-metadata --name {NFT_TITLE} --description "description test" --base-image-uri https://{BASE_IMAGE_URI}.ipfs.nftstorage.link/images/ --image-name {IMAGE_NAME}.jpeg
+```
