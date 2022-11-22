@@ -1,5 +1,6 @@
 import { ethers } from "ethers";
 import { getContractAt } from "@nomiclabs/hardhat-ethers/internal/helpers";
+import fs from "fs";
 
 // Helper method for fetching environment variables from .env
 const getEnvVariable = (key: string, defaultValue?: string) => {
@@ -38,4 +39,33 @@ const getContract = (contractName: string | any[], hre: any) => {
     );
 };
 
-export { getEnvVariable, getProvider, getAccount, getContract };
+const generateMetadata = (
+    name: string,
+    description: string,
+    baseImageUri: string,
+    imageName: string
+) => {
+    const tempMetadata = {
+        name: `#${name}`,
+        description,
+        image: `${baseImageUri}/${imageName}`,
+        external_url: `https://example.com/?token_id=1`,
+    };
+    const dir = fs.readdirSync("./metadata");
+    const metadatas = Object.values(dir)
+        .filter(item => Number(item))
+        .sort((a, b) => +a - +b);
+
+    fs.writeFileSync(
+        `./metadata/${metadatas.length + 1}`,
+        JSON.stringify(tempMetadata)
+    );
+};
+
+export {
+    getEnvVariable,
+    getProvider,
+    getAccount,
+    getContract,
+    generateMetadata,
+};

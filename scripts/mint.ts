@@ -1,5 +1,5 @@
 import { task } from "hardhat/config";
-import { getContract } from "./helpers";
+import { getContract, generateMetadata } from "./helpers";
 import fetch from "node-fetch";
 
 task("mint", "Mints from the NFT contract")
@@ -72,4 +72,19 @@ task("owner-of", "Returns the owner of the tokenId token.")
         const owner = await contract.ownerOf(taskArguments.tokenId);
 
         console.log(owner);
+    });
+
+task("generate-metadata")
+    .setDescription("Generate new Metadata on your source code")
+    .addParam("name", "Enter the NFT name.")
+    .addParam("description", "Enter the NFT description.")
+    .addParam("baseImageUri", "Enter the NFT baseImageUri.")
+    .addParam("imageName", "Enter the NFT imageName.")
+    .setAction(async (taskArguments, hre) => {
+        const name = taskArguments.name;
+        const description = taskArguments.description;
+        const baseImageUri = taskArguments.baseImageUri;
+        const imageName = taskArguments.imageName;
+
+        generateMetadata(name, description, baseImageUri, imageName);
     });
