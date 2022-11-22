@@ -47,3 +47,29 @@ task("token-uri", "Fetches the token metadata for the given token ID")
             `Metadata fetch response: ${JSON.stringify(metadata, null, 2)}`
         );
     });
+
+task("get-base-token-uri", "Get Base Token URI").setAction(
+    async (taskArguments, hre) => {
+        const contract = await getContract("NFT", hre);
+        const baseToken_uri = await contract.baseTokenURI();
+
+        console.log(`BaseToken URI: ${baseToken_uri}`);
+    }
+);
+
+task("get-approved", "Returns the account approved for tokenId token")
+    .addParam("tokenId", "tokenId must exist.")
+    .setAction(async (taskArguments, hre) => {
+        const contract = await getContract("NFT", hre);
+        const approved = await contract.getApproved(taskArguments.tokenId);
+        console.log(approved);
+    });
+
+task("owner-of", "Returns the owner of the tokenId token.")
+    .addParam("tokenId", "tokenId must exist.")
+    .setAction(async (taskArguments, hre) => {
+        const contract = await getContract("NFT", hre);
+        const owner = await contract.ownerOf(taskArguments.tokenId);
+
+        console.log(owner);
+    });

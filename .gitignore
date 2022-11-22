@@ -11,3 +11,11 @@ artifacts
 
 #Car files
 *.car
+
+#images directory
+/images/*
+/images/*
+/images/*
+
+#metadata directory
+/metadata/*
