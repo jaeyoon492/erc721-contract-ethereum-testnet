@@ -25,6 +25,9 @@ NETWORK="goerli"
 
 # Write contract-address after then deploying contract
 NFT_CONTRACT_ADDRESS={SMART_CONTRACT_ADDRESS}
+
+# If you want Publish your Smart Contract to Etherscan?
+ETHER_SCAN_API_KEY=""
 ```
 
 ## Usage Hardhat Cli
