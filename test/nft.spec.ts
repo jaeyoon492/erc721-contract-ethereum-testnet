@@ -12,7 +12,6 @@ let signers: SignerWithAddress[];
 beforeEach(async () => {
     {
         signers = await ethers.getSigners();
-        console.log("signers: ", signers);
 
         const NftFactory = (await ethers.getContractFactory(
             "NFT",
