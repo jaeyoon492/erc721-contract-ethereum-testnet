@@ -109,7 +109,7 @@ TEST_ACCOUNT_PRIVATE_KEY=""
 TEST_NODE_END_POINT=""
 ```
 
-1. Run Test
+3. Run Test
 
 ```shell
 yarn test --network localhost
