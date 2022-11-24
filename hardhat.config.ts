@@ -1,21 +1,31 @@
 import "./scripts/deploy";
 import "./scripts/mint";
+import "hardhat-jest-plugin";
 
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 import DotEnv from "dotenv";
 DotEnv.config();
 
-const { ALCHEMY_KEY, ACCOUNT_PRIVATE_KEY } = process.env;
+const {
+    ALCHEMY_KEY,
+    ACCOUNT_PRIVATE_KEY,
+    TEST_ACCOUNT_PRIVATE_KEY,
+    TEST_NODE_END_POINT,
+} = process.env;
 
 const config: HardhatUserConfig = {
     solidity: "0.8.17",
-    defaultNetwork: "goerli",
+    defaultNetwork: "localhost",
     networks: {
         hardhat: {},
         goerli: {
             url: `https://eth-goerli.alchemyapi.io/v2/${ALCHEMY_KEY}`,
             accounts: [`0x${ACCOUNT_PRIVATE_KEY}`],
+        },
+        localhost: {
+            url: TEST_NODE_END_POINT,
+            accounts: [`${TEST_ACCOUNT_PRIVATE_KEY}`],
         },
     },
 
