@@ -1,7 +1,6 @@
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { ethers } from "hardhat";
 import { waffleJest } from "@ethereum-waffle/jest";
-
 expect.extend(waffleJest);
 
 import { NFT, NFT__factory } from "../typechain-types";
@@ -43,8 +42,8 @@ describe("NFT Contract", () => {
     it("Attempt to mint with an account other than the contract owner", async () => {
         testAddress = "0x70997970C51812dc3A010C7d01b50e0d17dc79C8";
         const notOwnedAddress = "0xdD2FD4581271e230360230F9337D5c0430Bf44C0";
-
         const newConnectedContract = nft.connect(notOwnedAddress);
+
         expect(
             newConnectedContract.mintTo(testAddress)
         ).rejects.toBeCalledOnContract(newConnectedContract);
