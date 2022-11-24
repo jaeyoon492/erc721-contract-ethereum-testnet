@@ -19,7 +19,7 @@ contract NFT is ERC721, PullPayment, Ownable {
         baseTokenURI = "";
     }
     
-    function mintTo(address recipient) public payable returns (uint256) {
+    function mintTo(address recipient) public onlyOwner payable returns (uint256) {
         uint256 tokenId = currentTokenId.current();
         require(tokenId < TOTAL_SUPPLY, "Max supply reached");
 
@@ -29,7 +29,7 @@ contract NFT is ERC721, PullPayment, Ownable {
         return newItemId;
     }
 
-     function batchMint(address to, uint amount) public onlyOwner{
+     function batchMint(address to, uint amount) public onlyOwner {
         for (uint i = 0; i < amount; i++) {
             mintTo(to);
         }
@@ -41,7 +41,7 @@ contract NFT is ERC721, PullPayment, Ownable {
     }
 
     /// @dev Sets the base token URI prefix.
-    function setBaseTokenURI(string memory _baseTokenURI) public {
+    function setBaseTokenURI(string memory _baseTokenURI) public onlyOwner {
         baseTokenURI = _baseTokenURI;
     }
 
