@@ -1,6 +1,6 @@
 # Hardhat Project For Minting NFT
 
-<img src="public/icons/hardhat.jpeg"></img>
+<img src="public/icons/hardhat.jpeg" width="100%"></img>
 This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
 
 ## Prerequisite
