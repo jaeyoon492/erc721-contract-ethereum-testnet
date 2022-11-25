@@ -1,13 +1,13 @@
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
+import { expect } from "chai";
 import { ethers } from "hardhat";
-import { waffleJest } from "@ethereum-waffle/jest";
-expect.extend(waffleJest);
 
 import { NFT, NFT__factory } from "../typechain-types";
 
 let nft: NFT;
 let signers: SignerWithAddress[];
 let testAddress: string;
+let ownerAddress: string;
 
 beforeEach(async () => {
     {
@@ -25,7 +25,7 @@ beforeEach(async () => {
 describe("NFT Contract", () => {
     it("Check whether an operator is approved by a given owner.", async () => {
         testAddress = "0xbDA5747bFD65F08deb54cb465eB87D40e51B197E";
-        const ownerAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
+        ownerAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
 
         await nft.setApprovalForAll(`${testAddress}`, true, {
             from: `${ownerAddress}`,
@@ -36,7 +36,7 @@ describe("NFT Contract", () => {
             `${testAddress}`
         );
 
-        expect(isApproved).toEqual(true);
+        await expect(isApproved).to.equal(true);
     });
 
     it("Attempt to mint with an account other than the contract owner", async () => {
@@ -44,8 +44,15 @@ describe("NFT Contract", () => {
         const notOwnedAddress = "0xdD2FD4581271e230360230F9337D5c0430Bf44C0";
         const newConnectedContract = nft.connect(notOwnedAddress);
 
-        expect(
+        await expect(
             newConnectedContract.mintTo(testAddress)
-        ).rejects.toBeCalledOnContract(newConnectedContract);
+        ).to.be.rejectedWith("Ownable: caller is not the owner");
+    });
+
+    it("Check that the BaseURI you set is applied correctly", async () => {
+        const testBaseUri = "https://example.ipfs.nftstorage.link/metadata/";
+        await nft.setBaseTokenURI(testBaseUri);
+
+        expect(await nft.baseTokenURI()).to.equal(testBaseUri);
     });
 });
