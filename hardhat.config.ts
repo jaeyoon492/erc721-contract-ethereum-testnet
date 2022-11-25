@@ -1,8 +1,9 @@
 import "./scripts/deploy";
 import "./scripts/mint";
 import "hardhat-jest-plugin";
-
 import { HardhatUserConfig } from "hardhat/config";
+import "@nomicfoundation/hardhat-chai-matchers";
+import "@nomiclabs/hardhat-ethers";
 import "@nomicfoundation/hardhat-toolbox";
 import DotEnv from "dotenv";
 DotEnv.config();

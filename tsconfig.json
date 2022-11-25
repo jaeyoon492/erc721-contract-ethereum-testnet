@@ -8,8 +8,5 @@
         "skipLibCheck": true
     },
     "include": ["./scripts", "./test"],
-    "files": [
-        "./hardhat.config.ts",
-        "node_modules/@ethereum-waffle/jest/src/types.d.ts"
-    ]
+    "files": ["./hardhat.config.ts"]
 }
