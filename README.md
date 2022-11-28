@@ -82,7 +82,7 @@ npx hardhat generate-metadata --name {NFT_TITLE} --description "description test
 
 ## How to Test Contract
 
-1. turn on the local node
+1. turn on the local node.
 
 ```shell
 # Turn on the local node for testing
