@@ -10,49 +10,50 @@ let testAddress: string;
 let ownerAddress: string;
 
 beforeEach(async () => {
-    {
-        signers = await ethers.getSigners();
+  {
+    signers = await ethers.getSigners();
+    console.log("signers: ", signers);
 
-        const NftFactory = (await ethers.getContractFactory(
-            "NFT",
-            signers[0]
-        )) as NFT__factory;
+    const NftFactory = (await ethers.getContractFactory(
+      "NFT",
+      signers[0]
+    )) as NFT__factory;
 
-        nft = await NftFactory.deploy();
-    }
+    nft = await NftFactory.deploy();
+  }
 }, 10000);
 
 describe("NFT Contract", () => {
-    it("Check whether an operator is approved by a given owner.", async () => {
-        testAddress = "0xbDA5747bFD65F08deb54cb465eB87D40e51B197E";
-        ownerAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
+  it("Check whether an operator is approved by a given owner.", async () => {
+    testAddress = "0xbDA5747bFD65F08deb54cb465eB87D40e51B197E";
+    ownerAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
 
-        await nft.setApprovalForAll(`${testAddress}`, true, {
-            from: `${ownerAddress}`,
-        });
-
-        const isApproved = await nft.isApprovedForAll(
-            `${ownerAddress}`,
-            `${testAddress}`
-        );
-
-        await expect(isApproved).to.equal(true);
+    await nft.setApprovalForAll(`${testAddress}`, true, {
+      from: `${ownerAddress}`,
     });
 
-    it("Attempt to mint with an account other than the contract owner", async () => {
-        testAddress = "0x70997970C51812dc3A010C7d01b50e0d17dc79C8";
-        const notOwnedAddress = "0xdD2FD4581271e230360230F9337D5c0430Bf44C0";
-        const newConnectedContract = nft.connect(notOwnedAddress);
+    const isApproved = await nft.isApprovedForAll(
+      `${ownerAddress}`,
+      `${testAddress}`
+    );
 
-        await expect(
-            newConnectedContract.mintTo(testAddress)
-        ).to.be.rejectedWith("Ownable: caller is not the owner");
-    });
+    await expect(isApproved).to.equal(true);
+  });
 
-    it("Check that the BaseURI you set is applied correctly", async () => {
-        const testBaseUri = "https://example.ipfs.nftstorage.link/metadata/";
-        await nft.setBaseTokenURI(testBaseUri);
+  it("Attempt to mint with an account other than the contract owner", async () => {
+    testAddress = "0x70997970C51812dc3A010C7d01b50e0d17dc79C8";
+    const notOwnedAddress = "0xdD2FD4581271e230360230F9337D5c0430Bf44C0";
+    const newConnectedContract = nft.connect(notOwnedAddress);
 
-        expect(await nft.baseTokenURI()).to.equal(testBaseUri);
-    });
+    await expect(newConnectedContract.mintTo(testAddress)).to.be.rejectedWith(
+      "Ownable: caller is not the owner"
+    );
+  });
+
+  it("Check that the BaseURI you set is applied correctly", async () => {
+    const testBaseUri = "https://example.ipfs.nftstorage.link/metadata/";
+    await nft.setBaseTokenURI(testBaseUri);
+
+    expect(await nft.baseTokenURI()).to.equal(testBaseUri);
+  });
 });
