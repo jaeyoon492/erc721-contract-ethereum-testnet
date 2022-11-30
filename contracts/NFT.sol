@@ -34,6 +34,10 @@ contract NFT is ERC721, PullPayment, Ownable {
     return newItemId;
   }
 
+  function mintWithCustomTokenId(address recipient, uint256 tokenId) public onlyOwner{
+    _safeMint(recipient, tokenId);
+  }
+
   function batchMint(address to, uint amount) public onlyOwner {
     for (uint i = 0; i < amount; i++) {
       mintTo(to);

@@ -40,6 +40,16 @@ describe("NFT Contract", () => {
     await expect(isApproved).to.equal(true);
   });
 
+  it("same TokenId", async () => {
+    await nft.mintWithCustomTokenId(`${testAddress}`, 123);
+
+    try {
+      await nft.mintWithCustomTokenId(`${testAddress}`, 123);
+    } catch (err: any) {
+      expect(String(err).includes("token already minted")).to.be.equals(true);
+    }
+  });
+
   it("Attempt to mint with an account other than the contract owner", async () => {
     testAddress = "0x70997970C51812dc3A010C7d01b50e0d17dc79C8";
     const notOwnedAddress = "0xdD2FD4581271e230360230F9337D5c0430Bf44C0";
