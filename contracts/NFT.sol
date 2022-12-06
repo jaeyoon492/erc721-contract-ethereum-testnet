@@ -39,6 +39,9 @@ contract NFT is ERC721, PullPayment, Ownable {
   }
 
   function batchMint(address to, uint amount) public onlyOwner {
+    uint256 newItemId = currentTokenId.current();
+    require((amount + newItemId) < TOTAL_SUPPLY, "Can't mint over max supply");
+
     for (uint i = 0; i < amount; i++) {
       mintTo(to);
     }

@@ -1,0 +1,93 @@
+{
+  "manifestVersion": "3.2",
+  "admin": {
+    "address": "0x15Bf505516169937262E1aC16897fbA0FeeB642b",
+    "txHash": "0xe3f1a07944138206b8d771d92c972b061cff63135df873a90e437e6d4d46305d"
+  },
+  "proxies": [
+    {
+      "address": "0x5a6e068C02242288cbe8C1E96327ABd4B3463ECf",
+      "txHash": "0x0cef4c472def4193623f27ffb051469bc7b5c2e63e2377a93f84bac725887532",
+      "kind": "transparent"
+    }
+  ],
+  "impls": {
+    "58a4a4ce6c4d6038902284dfb469539d258f652565aa4fe4905418d82a2958e4": {
+      "address": "0xc6747D3562bC9F8633047a56E40e1720B4f0c2CA",
+      "txHash": "0x99037dea70172c1ce2e4f78540a2a684330e338e2bacb3cee743ed0197a92567",
+      "layout": {
+        "solcVersion": "0.8.17",
+        "storage": [
+          {
+            "label": "val",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256",
+            "contract": "Box",
+            "src": "contracts/Box.sol:5"
+          }
+        ],
+        "types": {
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          }
+        }
+      }
+    },
+    "7181e21bfc61fdd51c4bcc0440084e368a94f5f5794038d8b8c8cdde95595ba0": {
+      "address": "0x29617f59Dbe4520Dddd1A2B41cc429b437D7231F",
+      "txHash": "0x91641f463d7a8d5b79228dde485e19903874e6c17382a7b7658fe8e3b39d8201",
+      "layout": {
+        "solcVersion": "0.8.17",
+        "storage": [
+          {
+            "label": "val",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256",
+            "contract": "BoxV2",
+            "src": "contracts/BoxV2.sol:5"
+          }
+        ],
+        "types": {
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          }
+        }
+      }
+    },
+    "41be28c99df68beff1848c3351e0b6683d0c51d9042a1171dd8cdb58e49089ea": {
+      "address": "0x81F0fDE738A06449D0A8B3bB33331ba1e5dCfBfD",
+      "txHash": "0x94ed578052a6185b10d43da767cf7fad9a133c094a917e8fe3514ba88eebec1c",
+      "layout": {
+        "solcVersion": "0.8.17",
+        "storage": [
+          {
+            "label": "val",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256",
+            "contract": "BoxV3",
+            "src": "contracts/BoxV3.sol:5"
+          },
+          {
+            "label": "vals",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256",
+            "contract": "BoxV3",
+            "src": "contracts/BoxV3.sol:6"
+          }
+        ],
+        "types": {
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          }
+        }
+      }
+    }
+  }
+}

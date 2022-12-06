@@ -12,7 +12,7 @@ let ownerAddress: string;
 beforeEach(async () => {
   {
     signers = await ethers.getSigners();
-    console.log("signers: ", signers);
+    // console.log("signers: ", signers);
 
     const NftFactory = (await ethers.getContractFactory(
       "NFT",
@@ -24,6 +24,18 @@ beforeEach(async () => {
 }, 10000);
 
 describe("NFT Contract", () => {
+  it("mint", async () => {
+    const targetAddress = "0xdD2FD4581271e230360230F9337D5c0430Bf44C0";
+    const [deployer, addr] = await ethers.getSigners();
+
+    console.log("Balance of before mint: ", await addr.getBalance());
+
+    await nft.connect(deployer).setApprovalForAll(addr.getAddress(), true);
+    await nft.connect(addr).mintTo(targetAddress);
+
+    console.log("Balance of after mint: ", await addr.getBalance());
+  });
+
   it("Check whether an operator is approved by a given owner.", async () => {
     testAddress = "0xbDA5747bFD65F08deb54cb465eB87D40e51B197E";
     ownerAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
