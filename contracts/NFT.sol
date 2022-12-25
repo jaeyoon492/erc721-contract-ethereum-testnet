@@ -5,6 +5,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/security/PullPayment.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract NFT is ERC721, PullPayment, Ownable {
   using Counters for Counters.Counter;
@@ -14,6 +15,7 @@ contract NFT is ERC721, PullPayment, Ownable {
   Counters.Counter private currentTokenId;
 
   string public baseTokenURI;
+  string[] public tokenIds;
 
   constructor() ERC721("NFTTutorial", "NFT") {
     baseTokenURI = "";
@@ -32,6 +34,41 @@ contract NFT is ERC721, PullPayment, Ownable {
     uint256 newItemId = currentTokenId.current();
     _safeMint(recipient, newItemId);
     return newItemId;
+  }
+
+  function setUserTokenIds(address recipient) public {
+    uint256 tokenId = currentTokenId.current();
+
+    if(tokenIds.length >= 1){
+        flushingTokenIds();
+    }
+
+    for (uint i = 1; i <= tokenId; i++){
+      if(ownerOf(i) == recipient){
+          setTokenIds(Strings.toString(i));
+      }
+    }
+  }
+
+  function flushingTokenIds() public {
+    uint tokenIdsLength = tokenIds.length;
+    for(uint i = 0; i < tokenIdsLength; i++){
+      tokenIds.pop();
+    }
+    tokenIdsLength = 0;
+  }
+
+
+  function setTokenIds(string memory tokenId) public {
+    tokenIds.push(tokenId);
+  }
+
+  function getTokenIds() public view  returns (string[] memory) {
+    return tokenIds;
+  }
+
+  function getlastTokenId() public view returns (string memory) {
+    return Strings.toString(currentTokenId.current());
   }
 
   function mintWithCustomTokenId(address recipient, uint256 tokenId) public onlyOwner{

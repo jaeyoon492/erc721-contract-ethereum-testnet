@@ -20,7 +20,7 @@ const {
 
 const config: HardhatUserConfig = {
   solidity: "0.8.17",
-  defaultNetwork: "localhost",
+  defaultNetwork: "goerli",
   networks: {
     hardhat: {},
     goerli: {
