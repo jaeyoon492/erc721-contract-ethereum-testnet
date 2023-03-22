@@ -21,3 +21,5 @@ artifacts
 
 #metadata directory
 /metadata/*
+
+git.sh
